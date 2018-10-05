@@ -33,8 +33,8 @@ module.exports = (srcPath, bundlePath) => {
         npc.emit('playerDropItem', player, item);
       }
 
-      Broadcast.sayAt(player, `<green>You dropped: </green>${ItemUtil.display(item)}<green>.</green>`);
-	  Broadcast.sayAt(player.room, `${player.name} dropped </green>${ItemUtil.display(item)}<green>.`);
+      Broadcast.sayAt(player, `You dropped ${ItemUtil.display(item)}.`);
+	  Broadcast.sayAtExcept(player.room, `${player.name} dropped ${ItemUtil.display(item)}.`, player);
     }
   };
 };
