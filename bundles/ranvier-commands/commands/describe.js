@@ -16,11 +16,8 @@ module.exports = (srcPath) => {
         return Broadcast.sayAt(player, 'Enter a description');
       }
 	  else {
-		player.setMeta('description2', args);
-		if (!player.getMeta('config')) {
-			player.setMeta('config', {});
-		}
-		
+		player.setMeta('description', args);
+		player.save();
 		return Broadcast.sayAt(player, `You changed your description: ${args}`);
 	  }
     }
