@@ -10,6 +10,7 @@ module.exports = (srcPath) => {
 
   return {
     event: state => (socket, args) => {
+		
       let player = new Player({
         name: args.name,
         account: args.account,
@@ -25,10 +26,12 @@ module.exports = (srcPath) => {
         }
       });
 
+	  
       args.account.addCharacter(args.name);
       args.account.save();
 
       player.setMeta('class', args.playerClass);
+	  player.setMeta('description', args.description);
 
       const room = state.RoomManager.startingRoom;
       player.room = room;
