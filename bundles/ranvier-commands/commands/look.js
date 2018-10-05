@@ -107,17 +107,10 @@ module.exports = (srcPath, bundlePath) => {
       if (otherPlayer.isInCombat()) {
         combatantsDisplay = getCombatantsDisplay(otherPlayer);
       }
-      B.sayAt(player, '[Player] ' + otherPlayer.name + combatantsDisplay);
+      B.sayAt(player, otherPlayer.name + combatantsDisplay);
     });
 
-    // show all the items in the rom
-    room.items.forEach(item => {
-      if (item.hasBehavior('resource')) {
-        B.sayAt(player, `[${ItemUtil.qualityColorize(item, 'Resource')}] <magenta>${item.roomDesc}</magenta>`);
-      } else {
-        B.sayAt(player, `[${ItemUtil.qualityColorize(item, 'Item')}] <magenta>${item.roomDesc}</magenta>`);
-      }
-    });
+
 
     // show all npcs
     room.npcs.forEach(npc => {
@@ -176,9 +169,18 @@ module.exports = (srcPath, bundlePath) => {
           npcLabel = '<green>NPC</green>';
           break;
       }
-      B.sayAt(player, `[${npcLabel}] ` + npc.name + combatantsDisplay);
+      B.sayAt(player, npc.name + combatantsDisplay);
     });
 
+	    // show all the items in the rom
+    room.items.forEach(item => {
+      if (item.hasBehavior('resource')) {
+        B.sayAt(player, `${item.roomDesc}`);
+      } else {
+        B.sayAt(player, `${item.roomDesc}`);
+      }
+    });
+	
     B.at(player, '[<yellow><b>Exits</yellow></b>: ');
       // find explicitly defined exits
       let foundExits = Array.from(room.exits).map(ex => {

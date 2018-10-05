@@ -9,7 +9,6 @@ module.exports = (srcPath) => {
         const quest = state.QuestFactory.create(state, 'limbo:1', player);
         if (player.questTracker.canStart(quest)) {
           player.questTracker.start(quest);
-		  
         }
       }
     }

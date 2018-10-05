@@ -39,7 +39,7 @@ exports.qualityColorize = qualityColorize;
  * Friendly display colorized by quality
  */
 exports.display = function (item) {
-  return qualityColorize(item, `[${item.name}]`);
+  return qualityColorize(item, `${item.name}`);
 };
 
 /**

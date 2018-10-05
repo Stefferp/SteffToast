@@ -26,7 +26,6 @@ module.exports = (srcPath, bundlePath) => {
 
       player.removeItem(item);
       player.room.addItem(item);
-	  
       player.emit('drop', item);
       item.emit('drop', player);
 
@@ -34,8 +33,8 @@ module.exports = (srcPath, bundlePath) => {
         npc.emit('playerDropItem', player, item);
       }
 
-      //Broadcast.sayAt(player, `<green>You fucking dropped: </green>${ItemUtil.display(item)}<green>.</green>`);
-	  Broadcast.sayAt(player.room, `<green>${player.name} dropped </green>${ItemUtil.display(item)}<green>.</green>`);
+      Broadcast.sayAt(player, `<green>You dropped: </green>${ItemUtil.display(item)}<green>.</green>`);
+	  Broadcast.sayAt(player.room, `${player.name} dropped </green>${ItemUtil.display(item)}<green>.`);
     }
   };
 };
