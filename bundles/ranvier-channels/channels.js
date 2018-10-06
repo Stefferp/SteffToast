@@ -80,5 +80,23 @@ module.exports = (srcPath) => {
         }
       }
     }),
+	
+	new Channel({
+      name: 'announce',
+      color: ['bold', 'green'],
+      description: 'Announce something to all players',
+      audience: new WorldAudience(),
+	  minRequiredRole: PlayerRoles.ADMIN,
+      formatter: {
+        sender: function (sender, target, message, colorify) {
+          return colorify(`${message}`);
+        },
+
+        target: function (sender, target, message, colorify) {
+          return colorify(`${message}`);
+        }
+      }
+    }),
+	
   ];
 };
