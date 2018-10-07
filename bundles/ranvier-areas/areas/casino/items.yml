@@ -1,0 +1,10 @@
+- id: roulette_table
+  name: "roulette table"
+  roomDesc: "<white><b>elegant roulette table</b></white>"
+  keywords: [ "wheel", "roulette", "table" ]
+  description: >-
+    Grand in every sense of the word, this table is made of polished hardwood. Soft, green felt line the 
+    playing field, and beside this is the roulette wheel. It is in continuous motion, inviting in those
+    who wish to try their luck.
+  metadata:
+    noPickup: true

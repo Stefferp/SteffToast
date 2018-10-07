@@ -1,0 +1,10 @@
+- id: roulette_dealer
+  keywords: ["dealer", "man", "steve", "croupier"]
+  name: "Steve, a roulette croupier"
+  level: 1
+  pacifist: true
+  description: >-
+    Steve, the roulette croupier is dressed in a neatly-pressed casino uniform. He has short, neatly brushed
+    black hair and a cleanly shaven face. An always present smile graces his face.
+  behaviors:
+    ranvier-sentient: true

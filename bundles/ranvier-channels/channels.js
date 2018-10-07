@@ -6,6 +6,7 @@ module.exports = (srcPath) => {
   const RoomAudience = require(srcPath + 'ChannelAudience/RoomAudience');
   const PrivateAudience = require(srcPath + 'ChannelAudience/PrivateAudience');
   const PartyAudience = require(srcPath + 'ChannelAudience/PartyAudience');
+  const PlayerRoles = require(srcPath + 'PlayerRoles.js');
   const Channel = require(srcPath + 'Channel');
 
   return [
@@ -89,11 +90,11 @@ module.exports = (srcPath) => {
 	  minRequiredRole: PlayerRoles.ADMIN,
       formatter: {
         sender: function (sender, target, message, colorify) {
-          return colorify(`${message}`);
+          return colorify(`<red>SYSTEM MESSAGE:</red>\n<white>${message}\n<red>END MESSAGE`);
         },
 
         target: function (sender, target, message, colorify) {
-          return colorify(`${message}`);
+          return colorify(`<red>SYSTEM MESSAGE:</red>\n<white>${message}\n<red>END MESSAGE`);
         }
       }
     }),

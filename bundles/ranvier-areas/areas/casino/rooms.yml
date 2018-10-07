@@ -1,0 +1,21 @@
+- id: 1
+  title: "An elegant foyer"
+  description: >-
+    Pristine marbled floors and a high ceiling decorated with gilded touches afford this foyer a grand and luxurious
+    feel. An opulent crystal chandlier hangs high above, each dangling piece of crystal sparkling with the faintest
+    touch of light.
+  exits:
+    - roomId: "casino:2"
+      direction: north
+- id: 2
+  title: "An intimate roulette room"
+  description: >-
+    An air of intimacy prevades this roulette room. The low ceiling supports several dimly-litted lights, all of
+    which are directed towards the center of the room, providing a warm spotlot at an elegant roulette table.
+    Several leather chairs surround it, providing seating for gambling patrons.
+  items:
+    - id: "casino:roulette_table"
+  npcs: ["casino:roulette_dealer" ]
+  exits:
+    - roomId: "casino:1"
+      direction: south
