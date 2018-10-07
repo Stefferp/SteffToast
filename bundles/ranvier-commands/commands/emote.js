@@ -37,7 +37,7 @@ module.exports = (srcPath) => {
 
       player.room.players.forEach(presentPlayer => {
         if (presentPlayer === player) {
-          Broadcast.sayAt(player, 'You ${emoteMessage}');
+          Broadcast.sayAt(player, `You have emoted: ${emoteMessage}`);
         } else {
           Broadcast.sayAt(presentPlayer, emoteMessage.replace(presentPlayer.name, 'you'));
         }
