@@ -25,15 +25,17 @@ module.exports = (srcPath) => {
         player.removeFromCombat();
       }
 
-      const oldRoom = target.room;
+      const oldRoom = targetPlayer.room;
 
-      target.moveTo(player.room, () => {
-        Broadcast.sayAt(player, `<b><green>You snap your finger and instantly yank ${target.name} here.\r\n`);
+      targetPlayer.moveTo(player.room, () => {
+        Broadcast.sayAt(player, `<b><green>You snap your finger and instantly yank ${targetPlayer.name} here.`);
         state.CommandManager.get('look').execute('', player);
       });
 
-      Broadcast.sayAt(oldRoom, `${target.name} has been yanked away!`);
-      Broadcast.sayAtExcept(player.room, `${target.name} has been yanked here.`, target);
+      Broadcast.sayAt(oldRoom, `${targetPlayer.name} has been yanked away!`);
+      state.CommandManager.get('look').execute('', targetPlayer);
+      Broadcast.sayAtExcept(player.room, `You have been yanked here by ${player.name}.`, [player, player.room]);
+      Broadcast.sayAtExcept(player.room, `${targetPlayer.name} has been yanked here.`, [targetPlayer, player]);
     }
   }
 };

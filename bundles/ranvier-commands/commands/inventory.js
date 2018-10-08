@@ -21,6 +21,9 @@ module.exports = (srcPath, bundlePath) => {
       for (const [, item ] of player.inventory) {
         Broadcast.sayAt(player, ItemUtil.display(item));
       }
+
+      let money = player.getMeta("currencies.gold");
+      Broadcast.sayAt(player, `You are carrying <yellow><b>${money} </b><yellow>gold coins.`);
     }
   };
 };
