@@ -19,7 +19,7 @@
   name: "Slice of Cheese"
   roomDesc: "A moldy slice of cheese"
   keywords: [ "slice", "cheese", "moldy" ]
-  description: "A yellow, slightly moldy slice of cheese. Only a rat could find this appetizing."
+  description: "A yellow, slightly moldy slice of cheese. Only Michelle could find this appetizing."
   behaviors:
     decay:
       duration: 240

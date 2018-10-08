@@ -13,17 +13,17 @@ module.exports = (srcPath) => {
         return Broadcast.sayAt(player, 'What item do you want to create?');
       }
 
-      let isValid = args.includes(":")
+      let isValid = args.includes(":");
 
       if (!isValid) {
         return Broadcast.sayAt(player, "This is not a valid item to create. Include the semi colon. I.E. GIVEITEM LIMB0:1")
       }
-      let [ area, ref] = string.split(':');
-      const item = state.ItemFactory.create(area, ref);
+      
+      let area = state.AreaManager.getAreaByReference(args.split(':')[0]);
+      const item = state.ItemFactory.create( area, args );
       item.hydrate(state);
       player.addItem(item);
-      Broadcast.sayAt(player, "Item: " + item + " has been added to your inventory.");
-
+      return Broadcast.sayAt(player, `Item: ${item.name} has been added to your inventory.`);
     }
   };
 };
