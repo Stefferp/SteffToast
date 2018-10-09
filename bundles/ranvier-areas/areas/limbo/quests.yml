@@ -65,7 +65,7 @@
     - type: ItemReward
       config: 
         item: 'limbo:9'
-        amount: 10
+        amount: 2
 - id: 3
   title: Self Defense 101
   level: 2

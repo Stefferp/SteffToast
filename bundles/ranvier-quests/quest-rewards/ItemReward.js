@@ -23,27 +23,32 @@ module.exports = srcPath => {
   return class ItemReward extends QuestReward {
 
     static reward(GameState, quest, config, player) {
-
       const amount = this._getAmount(quest, config, player);
-    
-      
+      const item = this.getItem(GameState, config);
       let i;
-      for (i = 0; i < amount; i++){
-        let item = this.getItem(GameState, config);
+      let full = false;
+      for (i = 0; i < amount; i++) {
         item.hydrate(GameState);
-        player.addItem(item);
-        item.emit('get', player);
-        item.emit('get', item);
-        Broadcast.sayAt(player, i + '. beep');
-      }
 
-      if (amount > 1 ) {
+        if (!player.isInventoryFull()) {
+          player.addItem(item); 
+          item.emit('get', player);
+          player.emit('get', item);
+          Broadcast.sayAt(player, i + '. beep');
+        } else {
+          player.room.addItem(item);
+          player.emit('drop', item);
+          item.emit('drop', player);
+          full = true;
+        }       
+      }
+      if (amount > 1) {
         Broadcast.sayAt(player, `<white><b>You received</b></white> <red>${amount}</red> ${ItemUtil.display(item)}<white><b>!</b><white>`);
       }
       else {
         Broadcast.sayAt(player, `<white><b>You received</b></white> ${ItemUtil.display(item)}<white><b>!</b><white>`);
       }
-
+      if (full) Broadcast.sayAt(player, "Your inventory is full so we dropped some stuff on the ground");
     }
 
     static display(GameState, quest, config, player) {
