@@ -46,7 +46,7 @@ module.exports = (srcPath) => {
         },
 
         target: function (sender, target, message, colorify) {
-          return colorify(`${sender.name} tells you, '${message}'`);
+          return colorify(`${sender.name} tells you '${message}'`);
         }
       }
     }),
@@ -58,7 +58,7 @@ module.exports = (srcPath) => {
       audience: new AreaAudience(),
       formatter: {
         sender: function (sender, target, message, colorify) {
-          return colorify(`You yell, '${message}'`);
+          return colorify(`You yell '${message}'`);
         },
 
         target: function (sender, target, message, colorify) {
@@ -74,11 +74,11 @@ module.exports = (srcPath) => {
       audience: new PartyAudience(),
       formatter: {
         sender: function (sender, target, message, colorify) {
-          return colorify(`You tell the group, '${message}'`);
+          return colorify(`You tell the group '${message}'`);
         },
 
         target: function (sender, target, message, colorify) {
-          return colorify(`${sender.name} tells the group, '${message}'`);
+          return colorify(`${sender.name} tells the group '${message}'`);
         }
       }
     }),
