@@ -41,7 +41,7 @@ module.exports = (srcPath) => {
        * @param {number} amount Exp gained
        */
       experience: state => function (amount) {
-        Broadcast.sayAt(this, `<blue>You gained <bold>${amount}</bold> experience!</blue>`);
+        Broadcast.sayAt(this, `<b><white>You gained</white> <red>${amount}</red> <white>experience!</b></white>`);
 
         const totalTnl = LevelUtil.expToLevel(this.level + 1);
 
