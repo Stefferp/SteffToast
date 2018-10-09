@@ -103,7 +103,7 @@ module.exports = (srcPath, bundlePath) => {
     player.addItem(item);
 
     Broadcast.sayAt(player, `You take ${ItemUtil.display(item)}.`);
-	  Broadcast.sayAtExcept(player.room, `${player.name} takes ${ItemUtil.display(item)}.`, player);
+    Broadcast.sayAtExcept(player.room, `${player.name} takes ${ItemUtil.display(item)}.`, player);
 
     item.emit('get', player);
     player.emit('get', item);
