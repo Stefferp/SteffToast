@@ -26,11 +26,11 @@ module.exports = (srcPath) => {
       audience: new RoomAudience(),
       formatter: {
         sender: function (sender, target, message, colorify) {
-          return colorify(`You say, '${message}'`);
+          return colorify(`You ${sender.name == 'Michelle' ? 'squeek' : 'say'}, '${message}'`);
         },
 
         target: function (sender, target, message, colorify) {
-          return colorify(`${sender.name} says, '${message}'`);
+          return colorify(`${sender.name} ${sender.name == 'Michelle' ? 'squeeks' : 'says'}, '${message}'`);
         }
       }
     }),
