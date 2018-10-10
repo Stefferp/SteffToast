@@ -24,17 +24,17 @@ module.exports = srcPath => {
 
     static reward(GameState, quest, config, player) {
       const amount = this._getAmount(quest, config, player);
-      const item = this.getItem(GameState, config);
+      let item;
       let i;
       let full = false;
       for (i = 0; i < amount; i++) {
+        item = this.getItem(GameState, config);
         item.hydrate(GameState);
-
         if (!player.isInventoryFull()) {
           player.addItem(item); 
           item.emit('get', player);
           player.emit('get', item);
-          Broadcast.sayAt(player, i + '. beep');
+          Broadcast.sayAt(player, i + ' beep');
         } else {
           player.room.addItem(item);
           player.emit('drop', item);
