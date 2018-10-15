@@ -17,8 +17,7 @@ module.exports = (srcPath) => {
         say('');
         description = description.toString().trim();
         args.description = description;
-	    	return socket.emit('choose-class', socket, args);
-        
+		    return socket.emit('choose-class', socket, args);
       });
     }
   };
