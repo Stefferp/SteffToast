@@ -7,6 +7,7 @@ module.exports = (srcPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Logger = require(srcPath + 'Logger');
   const Config = require(srcPath + 'Config');
+  const EventUtil = require(srcPath + 'EventUtil');
 
   return  {
     listeners: {
@@ -92,7 +93,21 @@ module.exports = (srcPath) => {
           config,
           effectState
         ));
+      },
+
+      /**
+       * Handle a player equipping an item with a `stats` property
+       * @param {string} slot
+       * @param {Item} item
+       */
+      proposed: state => function (otherPlayer) {
+        Broadcast.sayAt(this, `This guy wants to get freaky with you: ${otherPlayer.name}. Type 'yes' to accept.`);
+        let answer = "yes";
+        otherPlayer.emit('proposalResponse', answer);
+      },
+      proposalResponse: state => function (answer) {
+        Broadcast.sayAt(this, `Your victim had a serious think about your proposal and this is their answer: ${answer}.`);
       }
     }
-  };
-};
+  }
+}

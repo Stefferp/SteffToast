@@ -25,13 +25,12 @@ module.exports = (srcPath) => {
           critical: 0
         }
       });
-
-	  
+      
       args.account.addCharacter(args.name);
       args.account.save();
 
       player.setMeta('class', args.playerClass);
-	  player.setMeta('description', args.description);
+	    player.setMeta('description', args.description);
 
       const room = state.RoomManager.startingRoom;
       player.room = room;

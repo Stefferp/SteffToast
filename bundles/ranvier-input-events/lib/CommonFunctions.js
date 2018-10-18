@@ -11,6 +11,7 @@ const Config  = require(srcPath + 'Config');
  * @param {string} name
  * @return {boolean}
  */
+ 
 exports.validateName = function(name) {
   const maxLength = Config.get('maxAccountNameLength');
   const minLength = Config.get('minAccountNameLength');
