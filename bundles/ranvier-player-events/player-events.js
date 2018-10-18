@@ -101,14 +101,13 @@ module.exports = (srcPath) => {
        * @param {Item} item
        */
       proposed: state => function (otherPlayer) {
-        Broadcast.sayAt(this, `This guy wants to get freaky with you: ${otherPlayer.name}. Type 'proposal yes' to accept.`);
-        this.socket.once('data', description => {
-          say('');
-          description = description.toString().trim();
-          args.description = description;
-        });
+        Broadcast.sayAt(this, `This guy wants to get freaky with you: ${otherPlayer.name}. Type 'yes' to accept.`);
+        let answer = "yes";
+        otherPlayer.emit('proposalResponse', answer);
+      },
+      proposalResponse: state => function (answer) {
+        Broadcast.sayAt(this, `Your victim had a serious think about your proposal and this is their answer: ${answer}.`);
       }
-
     }
-  };
-};
+  }
+}
