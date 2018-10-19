@@ -33,31 +33,25 @@ const fs = require('fs');
         }
       });
 
-      // actualAccount = state.AccountManager.loadAccount(accountName, false);
-      //let target = state.PlayerManager.loadPlayer(state,actualAccount,args,false);
-      
-      let target = Data.load('player', args);
+      let actualAccount = state.AccountManager.getAccount(accountName);
 
-      B.sayAt(player, target.name);
+      if (!actualAccount) {
+        B.sayAt(player,'whattt')
+      }
 
-      let money = target.metadata.description;
-      //let money = target.getMeta('description')
-      //let money = target.getMeta('currencies.gold') || 0;
+      let target = args;
+      let targetF = Data.load('player', target);
 
-      B.sayAt(player, 'why wont yo work?')
-      B.sayAt(player, 'Money is ' + money);
+      if (!targetF.metadata.messages) {
+        targetF.metadata.messages = [];
+      }
 
-      //target.setMeta('description', 'I\'m a fattypatty.');
-      target.metadata.description = 'fatty patty'
-      B.sayAt(player, target.metadata.description);
+      targetF.metadata.messages.push('Hahahahaha this works!');
+      Data.save('player', target, targetF, callBack())
 
-      //let myFunc = function() {return;}
-      //Data.saveFile(target.name + '.json', target.serialize(), myFunc);
-      //fs.writeFileSync(target.getDataFilePath('player', target.name), JSON.stringify(target, null, 2), 'utf8');
-      Data.save('player',target.name, JSON.stringify(target, null, 2,), 'nah')
-      B.sayAt(player, target.metadata.description);
-
-
+      function callBack() {
+          return B.sayAt(player, "Sent message.");
+      }
 
   }
  }
