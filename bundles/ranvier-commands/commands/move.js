@@ -27,6 +27,7 @@ module.exports = (srcPath) => {
       let nextRoom = null;
 
       if (!exit) {
+        /*
         if (oldRoom.coordinates) {
           const coords = oldRoom.coordinates;
           const area = oldRoom.area;
@@ -48,7 +49,7 @@ module.exports = (srcPath) => {
           }
         } else {
           return B.sayAt(player, "You can't go that way.");
-        }
+        } */
       } else {
         nextRoom = state.RoomManager.getRoom(exit.roomId);
       }

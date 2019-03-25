@@ -106,10 +106,15 @@ module.exports = (srcPath, bundlePath) => {
       });
 
       // infer from coordinates
+      /*
       if (room.coordinates) {
         const coords = room.coordinates;
         const area = room.area;
         const directions = {
+          northeast: [1, 1, 0],
+          northwest: [-1, 1, 0],
+          southeast: [1, -1, 0],
+          southwest: [-1, -1, 0],
           north: [0, 1, 0],
           south: [0, -1, 0],
           east: [1, 0, 0],
@@ -126,7 +131,7 @@ module.exports = (srcPath, bundlePath) => {
             return !!exitRoom;
           })
         )];
-      }
+      } */
 
       B.at(player, foundExits.map(([dir, exitRoom]) => {
         const door = room.getDoor(exitRoom) || exitRoom.getDoor(room);

@@ -8,49 +8,36 @@ const fs = require('fs');
 
 
   return {
-    usage: 'blarp <whatever>',
+    usage: 'blarp <blarped> <whatever>',
     command: (state) => (args, player) => {
       if (!args) {
         return B.sayAt(player, 'Need a valid character name.')
       }
-      args = args.trim();
-      args = args[0].toUpperCase() + args.slice(1);
     
-      let findPlayer = state.PlayerManager.exists(args);
+      let foo = args.split(' ');
+
+      let target = foo[0];
+      target = target[0].toUpperCase() + target.slice(1);
+      let msg = foo.splice(1)
+      msg = msg.join()
+
+      let findPlayer = state.PlayerManager.exists(target);
 
       if (!findPlayer) {
         return B.sayAt(player, 'That character does not exist.')
       }
 
-      let accountName;
-      state.AccountManager.accounts.forEach((account) => {
-        for (const key in account.characters) {
-          const val = account.characters[key];
-          if (val.username == args) {
-            accountName = account.username;
-            return B.sayAt(player, "We got a match! Wah wooo! and the account username is" + account.username);
-          }
-        }
-      });
-
-      let actualAccount = state.AccountManager.getAccount(accountName);
-
-      if (!actualAccount) {
-        B.sayAt(player,'whattt')
-      }
-
-      let target = args;
       let targetF = Data.load('player', target);
 
       if (!targetF.metadata.messages) {
         targetF.metadata.messages = [];
       }
 
-      targetF.metadata.messages.push('Hahahahaha this works!');
+      targetF.metadata.messages.push(msg);
       Data.save('player', target, targetF, callBack())
 
       function callBack() {
-          return B.sayAt(player, "Sent message.");
+          return B.sayAt(player, 'Sent message to ' + target + ': ' + msg);
       }
 
   }

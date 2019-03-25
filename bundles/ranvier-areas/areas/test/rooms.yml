@@ -1,0 +1,58 @@
+- id: 1
+  title: Cockpit
+  coordinates: [0, 0, 0]
+  description: "This is the cockpit of the Serenity ship."
+  exits:
+    - direction: south
+      roomId: "test:2"
+
+
+- id: 2
+  title: Fore passageway
+  coordinates: [0, -1, 0]
+  description: "It looks dirty and grungy here."
+  exits:
+    - direction: south
+      roomId: "test:5"
+    - direction: north
+      roomId: "test:1"
+    - direction: east
+      roomId: "test:3"
+    - direction: west
+      roomId: "test:4"
+- id: 3
+  title: East of passageway
+  coordinates: [1, -1, 0]
+  description: "It looks dirty and grungy here."
+  exits:
+    - direction: west
+      roomId: "test:2"
+- id: 4
+  title: West of passageway
+  coordinates: [-1, -1, 0]
+  description: "It looks dirty and grungy here."
+  exits:
+    - direction: east
+      roomId: "test:2"
+
+
+- id: 5
+  title: Ship's galley
+  coordinates: [0, -2, 0]
+  description: "The size of this galley is adequate for the ship's size."
+  exits:
+    - direction: north
+      roomId: "test:2"
+    - direction: south
+      roomId: "test:6"
+- id: 6
+  title: Ship's galley
+  coordinates: [0, -4, 0]
+  description: "The size of this galley is adequate for the ship's size."
+  exits:
+    - direction: north
+      roomId: "test:5"
+
+
+
+
