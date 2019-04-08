@@ -4,8 +4,8 @@ module.exports = srcPath => {
   return {
     usage: 'map',
     command: state => (args, player) => {
-      const playerRoom = player.room;
-      if (!playerRoom || !playerRoom.coordinates) {
+      const room = player.room;
+      if (!room || !room.coordinates) {
         return B.sayAt(player, "You can't see a map in this room.");
       }
 
@@ -20,188 +20,74 @@ module.exports = srcPath => {
         size = 1;
       }
 
-      const coords = playerRoom.coordinates;
-      
-      let roomExits;
-      let testTest = [];
-      let here = false;
-      let draw = ''; 
-      let final = '';
-      let north; 
-      let south; 
-      let east; 
-      let west;
+      const coords = room.coordinates;
+     //let map = ''//'.' + ('-'.repeat(xSize * 2 + 1)) + '.\r\n';
 
-      let map = [xSize, xSize];
-
-      for (var i = 0; i < xSize; i++){
-        for (var j = 0; j<xSize; j++) {
-          map[i, j] = "   ";
-          var woom = room.area.getRoomAtCoordinates(i, j, coords.z);
-          if (room) {
-              map[i*2, j*2] = "[ ]";
-              if (room.exits.south) { 
-                map[i*2, j*2+1] = " | ";
-              }
-              if (room.exits.north) { 
-                map[i*2, j*2-1] = " | ";
-              }
-              if (room.exits.east) { 
-                map[i*2+1, j*2] = " - ";
-              }
-              if (room.exits.west) { 
-                map[i*2-1, j*2] = " - ";
-              }
-          }
+      function create2DArray(numRows, numColumns) {
+        let array = new Array(numRows); 
+        for(let i = 0; i < numColumns; i++) {
+          array[i] = new Array(numColumns); 
         }
+        return array; 
       }
-      B.sayAt(player, map.toString);
-      /*
+      xSize = 10;
+      var map = create2DArray(xSize, xSize); 
 
+      for (var i=0; i<map.length; i++) {
+        for (var j=0; j<map.length; j++) {
+          map[i][j] = "   ";
+      }
+    }
       for (var y = coords.y + size; y >= coords.y - size; y--) {
-        //map += '';
+        //map += ' ';
         for (var x = coords.x - xSize; x <= coords.x + xSize; x++) {
-          room = room.area.getRoomAtCoordinates(x, y, coords.z);
-          if (room) {
-            woom.push(room);
-            roomExits = room.exits;
-            roomExits.forEach(exit => {
-              testTest.push(exit.direction);
-            })
-          }
-
           if (x === coords.x && y === coords.y) {
-            here = true;
-            //map += '[+]'
-          }
-          else {
-            if (room) {
-              here = false;
-              //map += '[ ]'
-            }
-            else {
-              map += '   ';
-              draw += '   ';
-              //return;
-            }
-          }
-          
-          if (room) {
-          if (testTest.includes('north')) {
-            north = true;
-          }
-          if (testTest.includes('south')) {
-            south = true;
-          }
-          if (testTest.includes('east')) {
-            east = true;
-          }
-          if (testTest.includes('west')) {
-            west = true;
-          }
+            //map += '[+]';
+            let xx = x - coords.x + xSize/2;
+            let yy = y - coords.y + xSize/2;
+            console.log("x: "+xx+". y:"+yy);
 
-          if (south || east || north || west) {
-            
-            if (south && east) {
-              //map = map.slice(3);
-              if (here) { map += '[+] - '} 
-             else { map += '[ ] k '};
-              draw += ' : ';
-              
-              //south = false;
-              //east = false;
-              tesTest = [];
-            }
-            else if (east || west) {
-              if (east) {
-                if (here) {
-                  map += '[+] e ';
+            map[y - coords.y + xSize/2][x + coords.x + xSize/2] = "[+]";
 
-                  map[x, y] = " \ "
-                }
-                else {
-                  map += '[ ] e ';
-                }
-              east = false;
-              testTest = [];
-              }
-            
-             if (west) {
-                if (here) { map += '[+]'} else {
-                  map += '[ ]'
-              }
-              //map += '[ ]';
-              west = false;
-              testTest = [];
-            }
-            }
-            else if (south) {
-              if (here) { map += '   [+]   '} 
-              else { map += '   [ ]   '};
-              draw += '    s    '; 
-              south = false;
-            }
-            else if (north) {
-              draw += '    |    ';
-              if (here) { map += '   [+]   '} 
-              else { map += '   [ ]   '};
-              //draw += '    s    '; 
-              north = false;
-            }
-            
-            south = false;
-            east = false;
-            west = false;
-            north = false;
-
-          }
-        }
-          /*
-          if (x === coords.x && y === coords.y) {
-            map += '[+]';
           } else if (room.area.getRoomAtCoordinates(x, y, coords.z)) {
             const hasUp = room.area.getRoomAtCoordinates(x, y, coords.z + 1);
             const hasDown = room.area.getRoomAtCoordinates(x, y, coords.z - 1);
             if (hasUp && hasDown) {
-              map += '%';
+              //map[x - coords.x + xSize-1][y - coords.y + size-1]  = '%';
             } else if (hasUp) {
-              map += '<';
+              //map[x - coords.x + xSize-1][y - coords.y + size-1]  = '<';
             } else if (hasDown) {
-              map += '>';
-            } 
-            else {
-              map += '[ ]';
+              //map[x - coords.x + xSize-1][y - coords.y + size-1] = '>';
+            } else {
+              map[y - coords.y + xSize/2][x + coords.x + xSize/2] = "[ ]";
             }
           } else {
-            map += ' <blue>~</blue> ';
-          } 
+            //map += '   ';
+            //map[x - coords.x + xSize-1][y - coords.y + size-1] = '';
+          }
         }
-        map += '\r\n';
-        if (draw != '') {
-        draw += '\r\n';
-        }
-        if (draw.includes('|')) {
-          final += draw + map;
-        }else {
-          draw = draw.replace('s', '|')
-          final += map + draw;
-        }
-        map = ''; draw = '';
-        testTest = [];
-        south = false;
-        east = false;
-        west = false;
-        north = false;
+
+        //map += '\r\n';
       }
 
       //map += "'" + ('-'.repeat(xSize * 2 + 1)) + "'";
 
-      B.sayAt(player, final);
-      woom.forEach( room => {
-        B.sayAt(player, `ID: ${room.id} | Title: ${room.title}`);
-      })
-      */
-     
+      //B.sayAt(player, map);
+      //B.sayAt(player, map.toString());
+      let count = 0;
+      let stringbuilder = "";
+      for (var y=0; y<map.length; y++) {
+        for (var x=0; x<map.length; x++) {
+          count++;
+          stringbuilder += map[y][x];
+          if (count>=xSize) {
+            count=0;
+            stringbuilder+='\r\n';
+          }
+      }
+    }
+    B.sayAt(player, stringbuilder);
+
     }
   };
 };
