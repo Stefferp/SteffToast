@@ -4,8 +4,8 @@ module.exports = srcPath => {
   return {
     usage: 'map',
     command: state => (args, player) => {
-      const room = player.room;
-      if (!room || !room.coordinates) {
+      const playerRoom = player.room;
+      if (!playerRoom || !playerRoom.coordinates) {
         return B.sayAt(player, "You can't see a map in this room.");
       }
 
@@ -20,26 +20,52 @@ module.exports = srcPath => {
         size = 1;
       }
 
-      function oddOrEven(num) {
-        num = Math.abs(num);
-        return (num & 1) ? "odd" : "even";
-      }
+      const coords = playerRoom.coordinates;
+      
+      let roomExits;
+      let testTest = [];
+      let here = false;
+      let draw = ''; 
+      let final = '';
+      let north; 
+      let south; 
+      let east; 
+      let west;
 
-      const coords = room.coordinates;
-      let map = ''//'.' + ('-'.repeat(xSize * 2 + 1)) + '.\r\n';
-      let woom = []; let test;
-      let testExits; let testTest = []; let here = false;
-      let draw = ''; let final = '';
-      let north; let south; let east; let west;
+      let map = [xSize, xSize];
+
+      for (var i = 0; i < xSize; i++){
+        for (var j = 0; j<xSize; j++) {
+          map[i, j] = "   ";
+          var woom = room.area.getRoomAtCoordinates(i, j, coords.z);
+          if (room) {
+              map[i*2, j*2] = "[ ]";
+              if (room.exits.south) { 
+                map[i*2, j*2+1] = " | ";
+              }
+              if (room.exits.north) { 
+                map[i*2, j*2-1] = " | ";
+              }
+              if (room.exits.east) { 
+                map[i*2+1, j*2] = " - ";
+              }
+              if (room.exits.west) { 
+                map[i*2-1, j*2] = " - ";
+              }
+          }
+        }
+      }
+      B.sayAt(player, map.toString);
+      /*
 
       for (var y = coords.y + size; y >= coords.y - size; y--) {
         //map += '';
         for (var x = coords.x - xSize; x <= coords.x + xSize; x++) {
-          test = room.area.getRoomAtCoordinates(x, y, coords.z);
-          if (test) {
-            woom.push(test);
-            testExits = test.exits;
-            testExits.forEach(exit => {
+          room = room.area.getRoomAtCoordinates(x, y, coords.z);
+          if (room) {
+            woom.push(room);
+            roomExits = room.exits;
+            roomExits.forEach(exit => {
               testTest.push(exit.direction);
             })
           }
@@ -49,7 +75,7 @@ module.exports = srcPath => {
             //map += '[+]'
           }
           else {
-            if (test) {
+            if (room) {
               here = false;
               //map += '[ ]'
             }
@@ -60,7 +86,7 @@ module.exports = srcPath => {
             }
           }
           
-          if (test) {
+          if (room) {
           if (testTest.includes('north')) {
             north = true;
           }
@@ -90,6 +116,8 @@ module.exports = srcPath => {
               if (east) {
                 if (here) {
                   map += '[+] e ';
+
+                  map[x, y] = " \ "
                 }
                 else {
                   map += '[ ] e ';
@@ -146,7 +174,7 @@ module.exports = srcPath => {
             }
           } else {
             map += ' <blue>~</blue> ';
-          } */
+          } 
         }
         map += '\r\n';
         if (draw != '') {
@@ -172,7 +200,8 @@ module.exports = srcPath => {
       woom.forEach( room => {
         B.sayAt(player, `ID: ${room.id} | Title: ${room.title}`);
       })
-
+      */
+     
     }
   };
 };
