@@ -14,7 +14,7 @@
     which are directed towards the center of the room, providing a warm spotlot at an elegant roulette table.
     Several leather chairs surround it, providing seating for gambling patrons.
   items:
-    - id: "casino:roulette_table"
+    - id: "casino:1"
   npcs: ["casino:roulette_dealer" ]
   exits:
     - roomId: "casino:1"

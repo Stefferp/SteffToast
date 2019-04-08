@@ -3,13 +3,26 @@
 module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const Data = require(srcPath + 'Data');
-const fs = require('fs');
+  const fs = require('fs');
+  const { CommandParser } = require(srcPath + 'CommandParser');
+  const dot = CommandParser.parseDot;
 
 
 
   return {
     usage: 'blarp <blarped> <whatever>',
     command: (state) => (args, player) => {
+
+      
+    
+
+
+
+
+
+
+      return;
+
       if (!args) {
         return B.sayAt(player, 'Need a valid character name.')
       }

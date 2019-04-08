@@ -1,10 +1,13 @@
-- id: roulette_table
-  name: "roulette table"
+- id: 1
+  name: "vespa scooter"
   roomDesc: "<white><b>elegant roulette table</b></white>"
-  keywords: [ "wheel", "roulette", "table" ]
+  keywords: [ "scooter", "moped" ]
   description: >-
-    Grand in every sense of the word, this table is made of polished hardwood. Soft, green felt line the 
-    playing field, and beside this is the roulette wheel. It is in continuous motion, inviting in those
-    who wish to try their luck.
+    Wow. It's a scoot-scoot-scooter.
+  behaviors:
+    vehicle:
+      type: "land"
+      pax: 2
+      roof: false
   metadata:
     noPickup: true

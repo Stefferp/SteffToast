@@ -42,6 +42,11 @@ module.exports = (srcPath) => {
           B.sayAt(this, quest.config.completionMessage);
         }
       },
+      
+      taskComplete: state => function (task) {
+        B.sayAt(this, 'Wow');
+      },
+      
 
       /**
        * Player received a quest reward

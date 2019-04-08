@@ -88,3 +88,29 @@
       config:
         amount: 5
         leveledTo: QUEST
+
+- id: 8
+  title: A Task Needs to be performed
+  level: 1
+  autoComplete: true
+  repeatable: true
+  description: |-
+    This is a test quest for tasks.
+  completionMessage: |-
+    This is working!
+  goals:
+    - type: TaskGoal
+      config:
+        title: Kick A Rat
+        count: 5
+        task: 'kick'
+        npc: 'limbo:1'
+  rewards:
+    - type: CurrencyReward
+      config:
+        amount: 10
+        currency: gold
+    - type: CurrencyReward
+      config:
+        amount: 12
+        currency: gold
