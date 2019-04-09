@@ -38,16 +38,15 @@ module.exports = srcPath => {
           map[i][j] = "   ";
       }
     }
+
       for (var y = coords.y + size; y >= coords.y - size; y--) {
-        //map += ' ';
         for (var x = coords.x - xSize; x <= coords.x + xSize; x++) {
           if (x === coords.x && y === coords.y) {
-            //map += '[+]';
             let xx = x - coords.x + xSize/2;
             let yy = y - coords.y + xSize/2;
             console.log("x: "+xx+". y:"+yy);
 
-            map[y - coords.y + xSize/2][x + coords.x + xSize/2] = "[+]";
+            map[y - coords.y + xSize/2][x - coords.x + xSize/2] = "[+]";
 
           } else if (room.area.getRoomAtCoordinates(x, y, coords.z)) {
             const hasUp = room.area.getRoomAtCoordinates(x, y, coords.z + 1);
@@ -59,7 +58,7 @@ module.exports = srcPath => {
             } else if (hasDown) {
               //map[x - coords.x + xSize-1][y - coords.y + size-1] = '>';
             } else {
-              map[y - coords.y + xSize/2][x + coords.x + xSize/2] = "[ ]";
+              map[y - coords.y + xSize/2][x - coords.x + xSize/2] = "[ ]";
             }
           } else {
             //map += '   ';
@@ -76,9 +75,11 @@ module.exports = srcPath => {
       //B.sayAt(player, map.toString());
       let count = 0;
       let stringbuilder = "";
-      for (var y=0; y<map.length; y++) {
+      for (var y=map.length-1; y>0; y--) {
         for (var x=0; x<map.length; x++) {
           count++;
+          console.log(x);
+          console.log(y);
           stringbuilder += map[y][x];
           if (count>=xSize) {
             count=0;
@@ -86,6 +87,7 @@ module.exports = srcPath => {
           }
       }
     }
+    
     B.sayAt(player, stringbuilder);
 
     }
