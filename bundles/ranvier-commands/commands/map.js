@@ -9,6 +9,16 @@ module.exports = srcPath => {
         return B.sayAt(player, "You can't see a map in this room.");
       }
 
+      const coords = room.coordinates;
+
+      function create2DArray(numRows, numColumns) {
+        let array = new Array(numRows); 
+        for(let i = 0; i < numColumns; i++) {
+          array[i] = new Array(numColumns); 
+        }
+        return array; 
+      }
+
       let size = parseInt(args, 10);
       // always make size an even number so the player is centered
       size = isNaN(size) ? 4 : size - (size % 2);
@@ -20,35 +30,43 @@ module.exports = srcPath => {
         size = 1;
       }
 
-      const coords = room.coordinates;
-     //let map = ''//'.' + ('-'.repeat(xSize * 2 + 1)) + '.\r\n';
+      xSize = 10; //size of map
+      var map = create2DArray(xSize*2, xSize*2); //create array for the map
 
-      function create2DArray(numRows, numColumns) {
-        let array = new Array(numRows); 
-        for(let i = 0; i < numColumns; i++) {
-          array[i] = new Array(numColumns); 
-        }
-        return array; 
-      }
-      xSize = 10;
-      var map = create2DArray(xSize, xSize); 
-
+      //fill the entire map with whitespaces first
       for (var i=0; i<map.length; i++) {
         for (var j=0; j<map.length; j++) {
           map[i][j] = "   ";
+        }
       }
-    }
 
+      //now we add detail to the map
       for (var y = coords.y + size; y >= coords.y - size; y--) {
         for (var x = coords.x - xSize; x <= coords.x + xSize; x++) {
           if (x === coords.x && y === coords.y) {
-            let xx = x - coords.x + xSize/2;
-            let yy = y - coords.y + xSize/2;
-            console.log("x: "+xx+". y:"+yy);
+            myX = (x - coords.x + xSize/2)*2;
+            myY = (y - coords.y + xSize/2)*2;
+            map[myY][myX] = "[+]";
+          } 
+          else if (room.area.getRoomAtCoordinates(x, y, coords.z)) 
+          {
+            myX = (x - coords.x + xSize/2)*2;
+            myY = (y - coords.y + xSize/2)*2;
+            let roomLoop = room.area.getRoomAtCoordinates(x, y, coords.z);
 
-            map[y - coords.y + xSize/2][x - coords.x + xSize/2] = "[+]";
+            roomLoop.exits.forEach(exit => { //add cool connections for all the exits
+              switch (exit.direction) {
+                case "south": map[myY-1][myX] = " | "; break;
+                case "north": map[myY+1][myX] = " | "; break;
+                case "east":  map[myY][myX+1] = "---"; break;
+                case "west":  map[myY][myX-1] = "---"; break;
+                case "northwest":  map[myY+1][myX-1] = " \ "; break;
+                case "northeast":  map[myY+1][myX+1] = " / "; break;
+                case "southwest":  map[myY-1][myX-1] = " / "; break;
+                case "southeast":  map[myY-1][myX+1] = " \ "; break;
+              }
+            });
 
-          } else if (room.area.getRoomAtCoordinates(x, y, coords.z)) {
             const hasUp = room.area.getRoomAtCoordinates(x, y, coords.z + 1);
             const hasDown = room.area.getRoomAtCoordinates(x, y, coords.z - 1);
             if (hasUp && hasDown) {
@@ -58,38 +76,27 @@ module.exports = srcPath => {
             } else if (hasDown) {
               //map[x - coords.x + xSize-1][y - coords.y + size-1] = '>';
             } else {
-              map[y - coords.y + xSize/2][x - coords.x + xSize/2] = "[ ]";
+              map[myY][myX] = "[ ]";
             }
-          } else {
-            //map += '   ';
-            //map[x - coords.x + xSize-1][y - coords.y + size-1] = '';
           }
         }
-
-        //map += '\r\n';
       }
 
-      //map += "'" + ('-'.repeat(xSize * 2 + 1)) + "'";
-
-      //B.sayAt(player, map);
-      //B.sayAt(player, map.toString());
+      //Make a nice looking string out of that whole mess
       let count = 0;
       let stringbuilder = "";
       for (var y=map.length-1; y>0; y--) {
         for (var x=0; x<map.length; x++) {
           count++;
-          console.log(x);
-          console.log(y);
           stringbuilder += map[y][x];
-          if (count>=xSize) {
+          if (count>=xSize*2) {
             count=0;
             stringbuilder+='\r\n';
           }
       }
     }
-    
-    B.sayAt(player, stringbuilder);
-
+    //spit it out at the player
+    B.sayAt(player, stringbuilder); 
     }
   };
 };
